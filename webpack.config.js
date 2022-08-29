@@ -9,6 +9,7 @@ module.exports = {
   },
   devtool: "inline-source-map",
   devServer: {
+    historyApiFallback: true,
     static: "./dist",
     compress: true,
     liveReload: false,

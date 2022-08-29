@@ -1,29 +1,14 @@
-import React, { useEffect } from "react";
-import { setFrequency } from "./redux/reducers/freReducer";
-import { fetchChartData } from "./redux/reducers/chartReducer";
-import { useDispatch, useSelector } from "react-redux";
-import Trade from "./container/Trade";
-import Table from "./container/Table";
-import Chart from "./container/Chart";
+import React from "react";
+import { useRoutes } from "react-router-dom";
+import routes from "./routes";
 
 export default function App() {
-  const dispatch = useDispatch();
-  const fre = useSelector((state) => state.frequency.value);
-
-  useEffect(() => {
-    selectFre(fre);
-  });
-
-  function selectFre(fre) {
-    dispatch(setFrequency(fre));
-    dispatch(fetchChartData(fre));
-  }
-
+  //根据路由表生成对应的路由规则
+  const element = useRoutes(routes);
   return (
     <div>
-      <Trade></Trade>
-      <Table fre={fre} selectFre={selectFre}></Table>
-      <Chart></Chart>
+      {/* 注册路由 */}
+      {element}
     </div>
   );
 }
