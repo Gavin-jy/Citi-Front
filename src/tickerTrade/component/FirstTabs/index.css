@@ -1,0 +1,32 @@
+/* 第一个标签栏 */
+.tabs-wrapper {
+  width: 262px;
+  height: 32px;
+  background-color: rgba(61, 86, 111, 0.4);
+  border-radius: 4px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-item {
+  width: 150px;
+  color: #80aff8;
+  padding: 5px 18px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.tab-item:last-child {
+  width: 110px;
+}
+
+.tab-item.active {
+  color: #19232e;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 4px;
+  background-color: #e9eef3;
+}

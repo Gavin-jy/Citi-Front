@@ -1,0 +1,7 @@
+@import '~antd/dist/antd.css';
+
+body {
+  background-color: #10161d;
+  padding: 40px 60px;
+  font-family: sans-serif;
+}

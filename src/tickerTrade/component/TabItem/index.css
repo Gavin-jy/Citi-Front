@@ -1,0 +1,38 @@
+.tab-item-1 {
+  width: 40px;
+  line-height: 24px;
+  height: 24px;
+  color: #80aff8;
+  vertical-align: middle;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.tab-item-1::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  box-sizing: border-box;
+  height: 16px;
+  width: 1px;
+  background-color: #34495f;
+  border: 1px solid #34495f;
+}
+
+.tab-item-1.active {
+  color: #19232e;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 4px;
+  background-color: #e9eef3;
+}
+
+/* +表示第一个兄弟节点 */
+.tab-item-1:first-child::before,
+.tab-item-1.active::before,
+.tab-item-1.active+.tab-item-1::before {
+  display: none;
+}

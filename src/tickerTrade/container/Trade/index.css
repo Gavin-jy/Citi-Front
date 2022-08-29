@@ -1,0 +1,7 @@
+/* 分割线 */
+.separate-line {
+  height: 1px;
+  margin: 20px 0 30px 0;
+  box-sizing: border-box;
+  border-top: 1px solid #3b3d4e;
+}

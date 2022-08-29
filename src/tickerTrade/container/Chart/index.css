@@ -1,0 +1,13 @@
+.flow-analysis {
+  margin-top: 40px;
+  background-color: #17202a;
+  border-radius: 4px;
+  box-shadow: 0 0 2px 1px #000000;
+  padding: 10px 10px;
+}
+
+.flow-tip {
+  padding: 10px 0 0 10px;
+  color: #ffffff;
+  font-family: sans-serif;
+}
