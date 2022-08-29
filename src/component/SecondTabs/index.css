@@ -1,0 +1,11 @@
+/* 第二个标签栏 */
+.tabs-wrapper-1 {
+  width: 322px;
+  height: 32px;
+  background-color: rgba(61, 86, 111, 0.4);
+  border-radius: 4px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

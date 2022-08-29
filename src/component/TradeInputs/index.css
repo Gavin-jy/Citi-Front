@@ -1,0 +1,111 @@
+/* 一系列的输入框 */
+.action-div {
+  /* height: 130px; */
+  /* transition-property: height;
+  transition-duration: 1s;
+  overflow: auto; */
+}
+
+.action-wrapper {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.action-left {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.action-right {
+  /* 该属性默认是1，当空间不足时会被压缩 */
+  flex-shrink: 0;
+  width: 200px;
+}
+
+.action-item {
+  margin-right: 20px;
+  /* margin-bottom: 10px; */
+}
+
+.action-label {
+  font-size: 12px;
+  color: #d9e2ea;
+}
+
+.action-input {
+  box-sizing: border-box;
+  height: 32px;
+  width: 160px;
+  color: #ffffff;
+  border: 1px solid #46637f;
+  border-radius: 4px;
+  background-color: #17202a;
+}
+
+.action-input-nlp {
+  box-sizing: border-box;
+  height: 32px;
+  width: 220px;
+  color: #ffffff;
+  border: 1px solid #46637f;
+  border-radius: 4px;
+  background-color: #17202a;
+}
+
+.action-button {
+  width: 80px;
+  height: 32px;
+  color: #000000;
+  font-size: 14px;
+  margin-bottom: 18px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.action-button:last-child {
+  margin-left: 20px;
+}
+
+.button-sell {
+  background-color: #ffcd00;
+}
+
+.button-sell:hover,
+.button-buy:hover,
+.button-nlp:hover {
+  opacity: 0.9;
+}
+
+.button-buy {
+  background-color: #00b755;
+}
+
+.button-nlp {
+  width: 80px;
+  height: 32px;
+  color: #FFFFFF;
+  font-size: 14px;
+  /* margin-bottom: 10px; */
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #015ea7;
+}
+
+.hidden-class {
+  display: none;
+}
+
+.error-class {
+  font-size: 12px;
+  color: #f74a4a;
+}
+
+.visible-class {
+  font-size: 12px;
+  visibility: hidden;
+}
