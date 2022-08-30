@@ -1,0 +1,21 @@
+.header {
+  background-color: #06848d;
+  position: sticky;
+  z-index: 999;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  padding: 0 30px 0 30px;
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  font-family: "Lucida Calligraphy", cursive, serif, sans-serif;
+}
+
+.ant-space-item {
+  display: flex;
+  align-items: center;
+}
+

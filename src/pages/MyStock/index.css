@@ -1,0 +1,28 @@
+/* 分割线 */
+.separate-line {
+    height: 1px;
+    margin: 20px 0 30px 0;
+    box-sizing: border-box;
+    border-top: 1px solid #cacbd6;
+  }
+
+.myStock-container{
+    height: 90%;
+    width: 90%;
+    margin-left: 50px;
+    margin-top:20px;
+}
+
+.title-tip {
+    text-align: left;
+    margin-bottom: 20px;
+    font-family: "Lucida Calligraphy", cursive, serif, sans-serif;
+    color: #fcfdfd;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .pagination-wrapper {
+    text-align: right;
+    margin-top: 20px;
+  }

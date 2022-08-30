@@ -1,0 +1,33 @@
+.form-div{
+  width: 500px;
+  background: #ffffff;
+  border-radius: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  text-align: right;
+}
+
+.title-tip{
+  text-align: center;
+  margin-bottom: 20px;
+  font-family:"Lucida Calligraphy", cursive, serif, sans-serif;;
+  color: #1890ff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.reg-tip{
+  font-size: 12px;
+  color: #7a7a7a;
+}
+
+.reg-tip:hover {
+  cursor: pointer;
+}
+
+.reg-tip:active{
+  color: #1890ff;
+}
