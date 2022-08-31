@@ -8,7 +8,7 @@ import constants from "../../utils/constants";
 export default function Header() {
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const userInfo = JSON.parse(localStorage.getItem("userInfo") || {});
+  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
 
   const handleSystemClick = (item) => {
     const key = item.key;

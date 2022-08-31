@@ -1,11 +1,12 @@
-const { createProxyMiddleware  } = require("http-proxy-middleware"); // 引入即可，不需要安装
+import { createProxyMiddleware } from "http-proxy-middleware"; // 引入即可，不需要安装
 
 // 新版本需要使用这个方法
-module.exports = function (app) {
+export default function (app) {
   app.use(
     createProxyMiddleware("/api", {
       //api1是需要转发的请求(所有带有/api1前缀的请求都会转发给5000)
-      target: "http://localhost:5500", //配置转发目标地址(能返回数据的服务器地址)
+      // target: "http://localhost:5500", //配置转发目标地址(能返回数据的服务器地址)
+      target:"192.168.43.15:8080",
       changeOrigin: true, //控制服务器接收到的请求头中host字段的值
       /*  
             changeOrigin设置为true时，服务器收到的请求头中的host为：localhost:5000  
