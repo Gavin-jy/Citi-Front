@@ -1,66 +1,95 @@
-import { Table, Pagination } from 'antd';
+import { Table, Pagination, PageHeader } from "antd";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 import { message } from "antd";
 import api from "../../api/api";
-import Header from "../../container/Header"
+import Header from "../../container/Header";
 
 export default function MyStock() {
   const { Column } = Table;
-  const pagination = false
-  const pageSize = 7;
+  const pageSize = 10;
+  const clientInfo = JSON.parse(sessionStorage.getItem("clientInfo"));
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
+  const [myStockData, setMyStockData] = useState({});
 
   async function fetchMyStockData(page) {
-    // 发请求
-    let resData = { dataList: [] };
     try {
-      resData = await api.user.getMyStockData({ page, pageSize });
-      setResData(resData);
+      const res = await api.user.getMyStockData({
+        clientId: clientInfo.clientId,
+        currentPage: page,
+        pageSize,
+      });
+      setMyStockData(res.data);
     } catch (error) {
-      message.error("获取失败");
+      message.error("request error");
       console.log(error);
     }
-  };
-
-  const [resData, setResData] = useState([]);
+  }
 
   useEffect(() => {
-    fetchMyStockData(1)
+    fetchMyStockData(1);
   }, []);
 
   const changePage = (page) => {
-    setCurrentPage(page)
+    setCurrentPage(page);
     fetchMyStockData(page);
+  };
+
+  const backToHome = () => {
+    navigate("/home", { replace: true });
   };
 
   return (
     <div>
       <Header />
+      <PageHeader
+        className="site-page-header"
+        onBack={backToHome}
+        title="Back"
+        subTitle="go back to home page"
+      />
       <div className="myStock-container">
-        <div className="title-tip">My Stock Information</div>
-        <div className="separate-line"></div>
+        <div className="title-stock">My Stock Information</div>
+        <div className="separate-line-stock"></div>
         <div>
-          <Table dataSource={resData.dataList} pagination={pagination}>
-            <Column title="Ticker Name" dataIndex="tickerName" key="tickerName" />
+          <Table
+            dataSource={myStockData?.dataList ?? []}
+            pagination={false}
+            bordered
+          >
+            <Column title="Ticker Name" dataIndex="ticker" key="tickerName" />
             <Column title="RIC" dataIndex="ric" key="ric" />
             <Column title="Price" dataIndex="price" key="price" />
-            <Column title="Issuer Sector" dataIndex="issuerSector" key="issuerSector" />
-            <Column title="Sales Person" dataIndex="salesPerson" key="salesPerson" />
-            <Column title="Hold Number" dataIndex="holdNumber" key="holdNumber" />
-            <Column title="Type" dataIndex="type" key="type" />
+            <Column title="Currency" dataIndex="currency" key="currency" />
+            <Column
+              title="national Usd"
+              dataIndex="national_usd"
+              key="nationalUsd"
+            />
+            <Column
+              title="Issuer Sector"
+              dataIndex="issuer_sector_name"
+              key="issuerSector"
+            />
+            <Column
+              title="Hold Number"
+              dataIndex="hold_number"
+              key="holdNumber"
+            />
           </Table>
         </div>
-        <div className="pagination-wrapper">
+        <div className="pagination-wrapper-stock">
           <Pagination
             showTotal={(total) => `Total ${total} items`}
             current={currentPage}
             pageSize={pageSize}
             onChange={changePage}
-            total={resData.total}
+            total={myStockData?.total ?? 0}
           />
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -40,7 +40,11 @@ export default function Register() {
 
   const doRegister = async (values) => {
     try {
-      const res = await api.user.register(values);
+      let reqData = {
+        clientName: values.clientName,
+        password: values.password,
+      };
+      const res = await api.user.register(reqData);
       if (res.code === 2000) {
         message.success("register successfully, login next");
         setTimeout(() => {
@@ -70,16 +74,16 @@ export default function Register() {
         autoComplete="off"
       >
         <Form.Item
-          name="username"
-          label="username"
+          name="clientName"
+          label="clientName"
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+              message: "Please input your clientName!",
             },
           ]}
         >
-          <Input />
+          <Input placeholder="clientName you want" />
         </Form.Item>
 
         <Form.Item
@@ -90,10 +94,15 @@ export default function Register() {
               required: true,
               message: "Please input your password!",
             },
+            {
+              pattern:
+                /^(?![A-Za-z]+$)(?![A-Z\d]+$)(?![A-Z\W]+$)(?![a-z\d]+$)(?![a-z\W]+$)(?![\d\W]+$)\S{8,}$/,
+              message: "The password format is abnormal",
+            },
           ]}
           hasFeedback
         >
-          <Input.Password />
+          <Input.Password placeholder="password you want" />
         </Form.Item>
 
         <Form.Item
@@ -119,8 +128,14 @@ export default function Register() {
             }),
           ]}
         >
-          <Input.Password />
+          <Input.Password placeholder="passwrod again" />
         </Form.Item>
+
+        <div className="password-tips">
+          tips: The password must be at least eight characters, consisting of at
+          least three types of digits, uppercase and lowercase letters, and
+          special characters
+        </div>
 
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">

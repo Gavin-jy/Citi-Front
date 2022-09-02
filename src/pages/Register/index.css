@@ -31,3 +31,15 @@
 .reg-tip:active{
   color: #1890ff;
 }
+
+.password-tips {
+  color: #919090;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.password-tips::before{
+  content: "*";
+  color: red;
+  font-size: 12px;
+}

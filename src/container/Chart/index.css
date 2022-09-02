@@ -11,3 +11,13 @@
   color: #ffffff;
   font-family: sans-serif;
 }
+
+.empty-chart {
+  color: #d9e2ea;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+}

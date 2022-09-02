@@ -1,5 +1,6 @@
 import { get, post } from "./fetch.js";
 
+// 主页表格和图例api
 const stock = {
   getTableData: (params) => {
     return get({
@@ -22,17 +23,19 @@ const stock = {
     });
   },
 
-  nlp: (params) => {
-    return post({
-      url: "/nlp",
-      params: params,
-    });
+  nlp: async (params) => {
+    try {
+      const res = await fetch(`http://192.168.229.150:5000/nlp/${params}`);
+      return await res.json();
+    } catch (err) {
+      return await Promise.reject(err);
+    }
   },
 
-  getChartData: () => {
+  getChartData: (params) => {
     return get({
-      url: "/getChartData",
-      params: {},
+      url: "/tradeStatistc/search",
+      params: params,
     });
   },
 };

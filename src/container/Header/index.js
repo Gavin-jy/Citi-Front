@@ -8,7 +8,7 @@ import constants from "../../utils/constants";
 export default function Header() {
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+  const clientInfo = JSON.parse(sessionStorage.getItem("clientInfo") || "{}");
 
   const handleSystemClick = (item) => {
     const key = item.key;
@@ -17,9 +17,9 @@ export default function Header() {
     } else if (key === "logout") {
       showModal();
     } else if (key === "info") {
-      navigate("/MyInfo");
+      navigate("/myInfo");
     } else if (key === "stock") {
-      navigate("/MyStock");
+      navigate("/myStock");
     }
   };
 
@@ -29,7 +29,7 @@ export default function Header() {
 
   const logout = () => {
     setIsModalVisible(false);
-    localStorage.removeItem("userInfo");
+    sessionStorage.removeItem("clientInfo");
     navigate("/login", { replace: true });
   };
 
@@ -41,7 +41,9 @@ export default function Header() {
     <Menu
       selectable
       onClick={handleSystemClick}
-      items={userInfo ? constants.SYSTEM_ITEMS : constants.LOGIN_ITEMS}
+      items={
+        clientInfo.clientName ? constants.SYSTEM_ITEMS : constants.LOGIN_ITEMS
+      }
     />
   );
 
@@ -51,7 +53,7 @@ export default function Header() {
 
       <Dropdown overlay={menu} arrow>
         <Space>
-          {userInfo.username ? userInfo.username : "未登录"}
+          {clientInfo.clientName ? clientInfo.clientName : "未登录"}
           <SettingFilled />
         </Space>
       </Dropdown>

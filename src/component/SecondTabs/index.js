@@ -19,7 +19,7 @@ export default function SecondTabs(props) {
 
   // 第二个标签栏点击事件
   function onClickHandler(event) {
-    console.log(event);
+    // console.log(event);
     const selected = event.target.dataset.value;
     tabItems.forEach((item) => {
       item.active = item.label === selected ? true : false;

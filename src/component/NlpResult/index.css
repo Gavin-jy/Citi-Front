@@ -1,0 +1,22 @@
+.nlp-result-wrapper {
+  background-color: #2b3d4e;
+  color: white;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.word-name {
+  font-weight: bold;
+  color: #ff7a75;
+}
+
+.word-notional {
+  font-weight: bold;
+  color: #00ea6c;
+}
+
+.word-ticker {
+  font-weight: bold;
+  color: #80aff8;
+}

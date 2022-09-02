@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { Pagination, Dropdown, Menu } from "antd";
+import { Pagination, Dropdown, Menu, Popover, Empty } from "antd";
 import { FilterFilled } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTableData } from "../../redux/reducers/tableReducer";
+import { setFilter } from "../../redux/reducers/filterReducer";
 import "./index.css";
 import SummaryItem from "../SummaryItem";
-import util from "../../utils/util";
+import FilterItem from "../FilterItem";
 import constants from "../../utils/constants";
+import util from "../../utils/util";
 
 export default function TableData() {
   const fre = useSelector((state) => state.frequency.value);
   const data = useSelector((state) => state.table.data);
+  const filterParams = useSelector((state) => state.filter.value);
   const dispatch = useDispatch();
-  const pageSize = 2;
+  const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [tableData, setTableData] = useState(data);
 
   useEffect(() => {
     setCurrentPage(1);
-    dispatch(fetchTableData({ fre, currentPage: 1, pageSize }));
+    dispatch(
+      fetchTableData({ fre, currentPage: 1, pageSize, ...filterParams })
+    );
   }, [fre]);
 
   useEffect(() => {
@@ -28,39 +33,31 @@ export default function TableData() {
   /*
    * 下拉菜单事件
    */
-  // 排序公共方法
-  const sortCommonFunction = (item, field) => {
-    if (item.key === 1) {
-      // 重置
-      setTableData(data);
-    } else {
-      // 重新排列数据
-      setTableData(util.sortTableData(tableData, field, item.key - 1));
-    }
+  // 抽离过滤公共方法
+  const filterCommonFunction = (item, field) => {
+    const newFilterParams = JSON.parse(JSON.stringify(filterParams));
+    newFilterParams[field] = item.key;
+    setCurrentPage(1);
+    dispatch(setFilter(newFilterParams));
+    dispatch(
+      fetchTableData({ fre, currentPage: 1, pageSize: 10, ...newFilterParams })
+    );
   };
   // 时间
   const handleDateMenuClick = (item) => {
-    sortCommonFunction(item, "date");
+    filterCommonFunction(item, "date");
   };
   // 大小
   const handleSizeMenuClick = (item) => {
-    sortCommonFunction(item, "size");
+    filterCommonFunction(item, "size");
   };
   // 价格
   const handlePriceMenuClick = (item) => {
-    sortCommonFunction(item, "price");
+    filterCommonFunction(item, "price");
   };
   // 美元价格
   const handleNationalUsdMenuClick = (item) => {
-    sortCommonFunction(item, "nationalUsd");
-  };
-  // 过滤公共方法
-  const filterCommonFunction = (item, field) => {
-    if (item.key === "RESET") {
-      setTableData(data); // 重置
-    } else {
-      setTableData(util.filterTableData(data, field, item.key)); // 排序
-    }
+    filterCommonFunction(item, "nationalUsd");
   };
   // 买入或卖出
   const handleClientSideMenuClick = (item) => {
@@ -122,7 +119,9 @@ export default function TableData() {
    */
   const changePage = (page) => {
     setCurrentPage(page);
-    dispatch(fetchTableData({ fre, currentPage: page, pageSize }));
+    dispatch(
+      fetchTableData({ fre, currentPage: page, pageSize, ...filterParams })
+    );
   };
 
   return (
@@ -135,7 +134,7 @@ export default function TableData() {
                 <th>
                   <div className="th-wrapper">
                     Date
-                    <Dropdown overlay={dateMenu}>
+                    <Dropdown overlay={dateMenu} arrow placement="bottom">
                       <FilterFilled />
                     </Dropdown>
                   </div>
@@ -143,15 +142,19 @@ export default function TableData() {
                 <th>
                   <div className="th-wrapper">
                     Client Name
-                    <Dropdown overlay={dateMenu}>
+                    <Popover
+                      content={<FilterItem field="clientName" />}
+                      placement="bottom"
+                      title="filter setter"
+                    >
                       <FilterFilled />
-                    </Dropdown>
+                    </Popover>
                   </div>
                 </th>
                 <th>
                   <div className="th-wrapper">
                     Client Side
-                    <Dropdown overlay={clientSideMenu}>
+                    <Dropdown overlay={clientSideMenu} arrow placement="bottom">
                       <FilterFilled />
                     </Dropdown>
                   </div>
@@ -159,31 +162,39 @@ export default function TableData() {
                 <th>
                   <div className="th-wrapper">
                     Ticker
-                    <Dropdown overlay={dateMenu}>
+                    <Popover
+                      content={<FilterItem field="ticker" />}
+                      placement="bottom"
+                      title="filter setter"
+                    >
                       <FilterFilled />
-                    </Dropdown>
+                    </Popover>
                   </div>
                 </th>
                 <th>
                   <div className="th-wrapper">
                     RIC
-                    <Dropdown overlay={dateMenu}>
+                    <Popover
+                      content={<FilterItem field="ric" />}
+                      placement="bottom"
+                      title="filter setter"
+                    >
                       <FilterFilled />
-                    </Dropdown>
+                    </Popover>
                   </div>
                 </th>
                 <th>
                   <div className="th-wrapper">
                     Size
-                    <Dropdown overlay={sizeMenu}>
+                    <Dropdown overlay={sizeMenu} arrow placement="bottom">
                       <FilterFilled />
                     </Dropdown>
                   </div>
                 </th>
                 <th>
                   <div className="th-wrapper">
-                    Prize
-                    <Dropdown overlay={priceMenu}>
+                    Price
+                    <Dropdown overlay={priceMenu} arrow placement="bottom">
                       <FilterFilled />
                     </Dropdown>
                   </div>
@@ -191,7 +202,11 @@ export default function TableData() {
                 <th>
                   <div className="th-wrapper">
                     National USD
-                    <Dropdown overlay={nationalUsdMenu}>
+                    <Dropdown
+                      overlay={nationalUsdMenu}
+                      arrow
+                      placement="bottom"
+                    >
                       <FilterFilled />
                     </Dropdown>
                   </div>
@@ -199,31 +214,43 @@ export default function TableData() {
                 <th>
                   <div className="th-wrapper">
                     Currency
-                    <Dropdown overlay={dateMenu}>
+                    <Popover
+                      content={<FilterItem field="currency" />}
+                      placement="bottom"
+                      title="filter setter"
+                    >
                       <FilterFilled />
-                    </Dropdown>
+                    </Popover>
                   </div>
                 </th>
                 <th>
                   <div className="th-wrapper">
                     Issuer Sector
-                    <Dropdown overlay={dateMenu}>
+                    <Popover
+                      content={<FilterItem field="issuerSector" />}
+                      placement="bottom"
+                      title="filter setter"
+                    >
                       <FilterFilled />
-                    </Dropdown>
+                    </Popover>
                   </div>
                 </th>
                 <th>
                   <div className="th-wrapper">
                     Salesperson
-                    <Dropdown overlay={dateMenu}>
+                    <Popover
+                      content={<FilterItem field="salesperson" />}
+                      placement="bottom"
+                      title="filter setter"
+                    >
                       <FilterFilled />
-                    </Dropdown>
+                    </Popover>
                   </div>
                 </th>
                 <th>
                   <div className="th-wrapper">
                     HT/PT
-                    <Dropdown overlay={htPtMenu}>
+                    <Dropdown overlay={htPtMenu} arrow placement="bottom">
                       <FilterFilled />
                     </Dropdown>
                   </div>
@@ -231,34 +258,42 @@ export default function TableData() {
               </tr>
             </thead>
             <tbody>
-              {tableData.dataList.map((line) => {
-                return (
-                  <tr key={line.id}>
-                    <td>{line.date}</td>
-                    <td>{line.clientName}</td>
-                    <td
-                      className={
-                        line.clientSide === "Buy"
-                          ? "data-green"
-                          : line.clientSide === "Sell"
-                          ? "data-red"
-                          : ""
-                      }
-                    >
-                      {line.clientSide}
-                    </td>
-                    <td>{line.ticker}</td>
-                    <td>{line.ric}</td>
-                    <td>{line.size}</td>
-                    <td>{line.prize}</td>
-                    <td>{line.nationalUsd}</td>
-                    <td>{line.currency}</td>
-                    <td>{line.issuerSector}</td>
-                    <td>{line.salesperson}</td>
-                    <td>{line.type}</td>
-                  </tr>
-                );
-              })}
+              {!tableData.dataList || tableData.dataList.length === 0 ? (
+                <tr>
+                  <td colSpan={12}>
+                    <Empty className="empty-table" description="Sorry, no table data !" />
+                  </td>
+                </tr>
+              ) : (
+                tableData.dataList.map((line) => {
+                  return (
+                    <tr key={line.trade_id}>
+                      <td>{util.formatFullTime(line.trade_date)}</td>
+                      <td>{line.client_name}</td>
+                      <td
+                        className={
+                          line.client_side === "Buy"
+                            ? "data-green"
+                            : line.client_side === "Sell"
+                            ? "data-red"
+                            : ""
+                        }
+                      >
+                        {line.client_side}
+                      </td>
+                      <td>{line.ticker}</td>
+                      <td>{line.ric}</td>
+                      <td>{line.size}</td>
+                      <td>{line.price}</td>
+                      <td>{line.national_usd}</td>
+                      <td>{line.currency}</td>
+                      <td>{line.issuer_sector_name}</td>
+                      <td>{line.sales_person_name}</td>
+                      <td>{line.trade_type}</td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>
@@ -268,37 +303,37 @@ export default function TableData() {
             <SummaryItem
               className="data-green"
               label="Total Buy: "
-              value={tableData.totalBuy}
+              value={tableData?.totalBuy ?? 0}
             ></SummaryItem>
             <SummaryItem
               className="data-red"
               label="Total Sell: "
-              value={tableData.totalSell}
+              value={-tableData?.totalSell ?? 0}
             ></SummaryItem>
             <SummaryItem
               className="data-blue"
               label="Net Quantity: "
-              value={tableData.netQuantity}
+              value={tableData?.netQuantity ?? 0}
             ></SummaryItem>
             <SummaryItem
               className="data-green"
               label="Total Buy National: "
-              value={tableData.totalBuyNational}
+              value={tableData?.totalBuyNational ?? 0}
             ></SummaryItem>
             <SummaryItem
               className="data-red"
               label="Total Sell National: "
-              value={tableData.totalSellNational}
+              value={-tableData?.totalSellNational ?? 0}
             ></SummaryItem>
             <SummaryItem
               className="data-blue"
               label="Net National: "
-              value={tableData.netNational}
+              value={tableData?.netNational ?? 0}
             ></SummaryItem>
           </div>
           <div>
             <span className="data-records">
-              Records: {tableData.dataList.length}
+              Records: {tableData.dataList?.length ?? 0}
             </span>
           </div>
         </div>
@@ -308,7 +343,7 @@ export default function TableData() {
             current={currentPage}
             pageSize={pageSize}
             onChange={changePage}
-            total={data.total}
+            total={tableData.total}
           />
         </div>
       </div>

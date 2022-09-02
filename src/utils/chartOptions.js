@@ -1,4 +1,5 @@
 export const CHART_OPTIONS = (dateSeries, buySeries, sellSeries) => {
+  sellSeries = sellSeries.map((item) => -item);
   // 计算折线图数据
   let cumulationSeries = Array.from(buySeries);
   for (let i = 0; i < buySeries.length; i++) {

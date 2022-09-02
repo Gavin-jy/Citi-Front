@@ -8,9 +8,10 @@ export const fetchTableData = createAsyncThunk(
     // 发请求
     let data = { dataList: [] };
     try {
-      data = await api.stock.getTableData(params);
+      const res = await api.stock.getTableData(params);
+      data = { ...res.data };
     } catch (error) {
-      message.error("获取失败");
+      message.error("request error !");
       console.log(error);
     }
     return data;

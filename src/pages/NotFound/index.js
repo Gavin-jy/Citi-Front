@@ -6,7 +6,7 @@ export default function NotFound() {
   const navigate = useNavigate();
 
   const back = () => {
-    navigate('/home');
+    navigate("/home", { replace: true });
   };
 
   return (
@@ -40,12 +40,12 @@ export default function NotFound() {
           <div className="box__description-container">
             <div className="box__description-title">404 Error！</div>
             <div className="box__description-text">
-            Looks like we can't find the page you're looking for
+              Looks like we can't find the page you're looking for
             </div>
           </div>
 
           <button onClick={back} className="box__button">
-            返回
+            Back home
           </button>
         </div>
       </div>

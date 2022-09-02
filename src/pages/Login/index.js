@@ -12,9 +12,11 @@ export default function Login() {
       const res = await api.user.login(values);
       if (res.code === 2000) {
         message.success("login successfully");
-        const userInfo = res.data;
-        window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
-        navigate("/home");
+        const { clientInfo } = res.data;
+        sessionStorage.setItem("clientInfo", JSON.stringify(clientInfo));
+        setTimeout(() => {
+          navigate("/home");
+        }, 1000);
       } else {
         message.error(res.msg);
         console.log(res.msg);
@@ -32,18 +34,28 @@ export default function Login() {
   return (
     <div className="form-div">
       <div className="title-tip">Citi Stock System Login</div>
-      <Form name="login" onFinish={doLogin} autoComplete="off">
+      <Form
+        name="login"
+        onFinish={doLogin}
+        autoComplete="off"
+        labelCol={{
+          span: 6,
+        }}
+        wrapperCol={{
+          span: 18,
+        }}
+      >
         <Form.Item
-          label="username"
-          name="username"
+          label="clientName"
+          name="clientName"
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+              message: "Please input your clientName!",
             },
           ]}
         >
-          <Input />
+          <Input placeholder="your clientName" />
         </Form.Item>
         <Form.Item
           label="password"
@@ -55,9 +67,14 @@ export default function Login() {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password placeholder="your password" />
         </Form.Item>
-        <Form.Item>
+        <Form.Item
+          wrapperCol={{
+            offset: 6,
+            span: 18,
+          }}
+        >
           <Button type="primary" htmlType="submit">
             Login
           </Button>

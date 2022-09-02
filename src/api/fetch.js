@@ -22,7 +22,7 @@ export async function post({ url, params }) {
   try {
     const res = await fetch(baseUrl + url, {
       method: "POST",
-      header: {
+      headers: {
         "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify(params),

@@ -43,34 +43,34 @@ const TAB_ITEMS = [
 
 // 第三个属性表示是否出现未填就提交的情况
 const INPUT_LABELS = [
-  ["Client name", "clientName", false],
-  ["Ticker", "ticker", false],
-  ["RIC", "ric", false],
-  ["Size", "size", false],
-  ["Price", "price", false],
-  ["Currency", "currency", false],
-  ["Issuer Sector", "issuerSector", false],
-  ["Salesperson", "salesperson", false],
+  ["Client name", "clientName", false, "please input text"],
+  ["Ticker", "ticker", false, "please input text"],
+  ["RIC", "ric", false, "please input text"],
+  ["Size", "size", false, "please input text"],
+  ["Price", "price", false, "please input text"],
+  ["Currency", "currency", false, "please input text"],
+  ["Issuer Sector", "issuerSector", false, "please input text"],
+  ["Salesperson", "salesperson", false, "please input text"],
 ];
 
 const SORT_MENU_ITEMS = [
   {
-    key: 1,
+    key: 0,
     label: "重置",
   },
   {
-    key: 2,
+    key: 1,
     label: "升序",
   },
   {
-    key: 3,
+    key: 2,
     label: "降序",
   },
 ];
 
 const CLIENT_SIDE_MENU_ITEMS = [
   {
-    key: "RESET",
+    key: "",
     label: "重置",
   },
   {
@@ -85,7 +85,7 @@ const CLIENT_SIDE_MENU_ITEMS = [
 
 const HT_PT_MENU_ITEMS = [
   {
-    key: "RESET",
+    key: "",
     label: "重置",
   },
   {
@@ -120,6 +120,14 @@ const LOGIN_ITEMS = [
   },
 ];
 
+const AUTOCOMPLETE_INIT_ITEMS = [
+  {
+    key: "empty",
+    label: "empty",
+    disabled: true,
+  },
+]
+
 const constants = {
   INPUT_LABELS,
   TAB_ITEMS,
@@ -128,6 +136,7 @@ const constants = {
   HT_PT_MENU_ITEMS,
   SYSTEM_ITEMS,
   LOGIN_ITEMS,
+  AUTOCOMPLETE_INIT_ITEMS
 };
 
 export default constants;

@@ -1,0 +1,55 @@
+.site-page-header {
+  background-color: rgba(61, 86, 111, 0.4);
+}
+
+/* 修改ant默认样式 */
+.ant-page-header-heading-title {
+  color: #80aff8;
+}
+
+.ant-page-header-heading-sub-title {
+  color: #97afc6;
+}
+
+.anticon-arrow-left {
+  color: #80aff8;
+}
+
+.anticon-arrow-left:active {
+  color: #ffffff;
+}
+
+.info-main {
+  margin: 20px 20px;
+  padding: 20px 20px;
+  background-color: rgba(61, 86, 111, 0.4);
+  border-radius: 20px;
+}
+
+.ant-divider-inner-text {
+  color: #80aff8;
+}
+
+.info-wrap {
+  font-size: 14px;
+  color: #97afc6;
+}
+
+.info-tip:first-child {
+  margin-bottom: 10px;
+}
+
+.info-text {
+  color: #ffffff;
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+.changeForm {
+  width: 500px;
+  text-align: right;
+}
+
+.changeForm .ant-form-item-label > label {
+  color: #97afc6;
+}

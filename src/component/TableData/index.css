@@ -7,14 +7,14 @@
   overflow: auto;
 }
 
-.table-wrapper table {
+.table-div table {
   border-collapse: collapse;
   color: #d9e2ea;
   font-size: 12px;
 }
 
-.table-wrapper td,
-.table-wrapper th {
+.table-div td,
+.table-div th {
   border: 1px solid #46637f;
   text-align: left;
   width: 150px;
@@ -23,7 +23,7 @@
   box-sizing: border-box;
 }
 
-.table-wrapper th {
+.table-div th {
   background-color: #2b3d4e;
   font-weight: bold;
 }
@@ -76,4 +76,12 @@
 
 .data-records {
   color: #80aff8;
+}
+
+.empty-table {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }

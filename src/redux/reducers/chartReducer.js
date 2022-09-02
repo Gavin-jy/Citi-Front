@@ -8,10 +8,10 @@ export const fetchChartData = createAsyncThunk(
     // 发请求
     let data = { dateList: [], buySeries: [], sellSeries: [] };
     try {
-      const res = await api.stock.getChartData();
-      data = { ...res };
+      const res = await api.stock.getChartData({fre});
+      data = { ...res.data };
     } catch (error) {
-      message.error("获取失败");
+      message.error("request error !");
       console.log(error);
     }
     return data;

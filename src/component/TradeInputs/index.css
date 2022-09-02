@@ -46,7 +46,7 @@
 .action-input-nlp {
   box-sizing: border-box;
   height: 32px;
-  width: 220px;
+  width: 300px;
   color: #ffffff;
   border: 1px solid #46637f;
   border-radius: 4px;
@@ -96,6 +96,11 @@
   background-color: #015ea7;
 }
 
+.button-nlp:last-child {
+  margin-left: 20px;
+  background-color: #00a04b;
+}
+
 .hidden-class {
   display: none;
 }
@@ -108,4 +113,40 @@
 .visible-class {
   font-size: 12px;
   visibility: hidden;
+}
+
+.nlp-tips {
+  margin-top: 4px;
+  color: #aaaaaa;
+  font-size: 12px;
+}
+
+.nlp-tips::before {
+  content: "*";
+  color: red;
+  font-size: 12px;
+}
+
+.empty-nlp {
+  height: 200px;
+  display: flex;
+  justify-content:center;
+  align-items:flex-start;
+  color: #d9e2ea;
+  flex-direction: column;
+}
+
+.spin-nlp {
+  width: 220px;
+}
+
+.trade-input-tip {
+  color: #aaaaaa;
+  font-size: 12px;
+}
+
+.trade-input-tip::before {
+  content: "*";
+  color: red;
+  font-size: 12px;
 }
